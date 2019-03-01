@@ -22,8 +22,14 @@ class TestUtils(TestCase):
         promotional_code.generate_promotional_code(rule_mark, total, mark_up, path)
         with open(path) as master:
             for line in master.readlines():
-                if type(line) is not '\n':
-                    continue
+                res = promotional_code.decrypt_promotional_code(line)
+                self.assertEqual(res, rule_mark)
+
+    def test_decrypt_promotional_code(self):
+        path = '{}/test.txt'.format(CURRENT_DIR)
+        rule_mark = 'a'
+        with open(path) as master:
+            for line in master.readlines():
                 res = promotional_code.decrypt_promotional_code(line)
                 self.assertEqual(res, rule_mark)
 
