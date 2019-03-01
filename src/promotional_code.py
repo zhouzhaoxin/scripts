@@ -1,5 +1,9 @@
 """
 生成优惠码
+1. 码不保存到库里
+2. 码里面有对应的优惠信息
+3. 不可以被用户猜到
+4. 和美年达、七喜合作，生成5亿个5元和10元码
 """
 import datetime
 import os
@@ -81,6 +85,9 @@ def generate_promotional_code(rule_mark, total, mark_up, save_path):
 
 
 def decrypt_promotional_code(code):
+    """
+    解析出优惠标记
+    """
     encrypt_symbol = ''.join([code[i] for i in range(16) if i % 2 == 0])
     random_str = ''.join([code[i] for i in range(16) if i % 2 != 0])
     decrypted = aes.get_decrypt_hex_bytes(encrypt_symbol)
