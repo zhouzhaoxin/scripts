@@ -28,7 +28,6 @@ class AESUtil:
 
     def decrypt_hex(self, need_decrypt: str):
         need_decrypt_hex = bytes.fromhex(need_decrypt)
-        print(need_decrypt_hex)
         return self.obj.decrypt(need_decrypt_hex)
 
 
@@ -41,7 +40,6 @@ def get_decrypt_hex(s):
     obj = AESUtil()
     try:
         result = obj.decrypt_hex(s)
-        print(result)
         data = result.decode()
     except Exception:
         import traceback
@@ -54,7 +52,6 @@ def get_decrypt_hex_bytes(s):
     obj = AESUtil()
     try:
         result = obj.decrypt_hex(s)
-
         data = result.decode()
     except Exception:
         import traceback

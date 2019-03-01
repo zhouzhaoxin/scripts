@@ -10,8 +10,25 @@ class TestUtils(TestCase):
     def setUp(self):
         pass
 
-    def test_generate_with_rule_id(self):
-        random_str, encrypt_symbol = promotional_code.generate_with_rule_id('a', 'a')
+    def test_generate_promotional_code(self):
+        """
+        测试生成优惠码，并解码
+        :return:
+        """
+        rule_mark = 'a'
+        total = 10
+        mark_up = chr(1)
+        path = '{}/test.txt'.format(CURRENT_DIR)
+        promotional_code.generate_promotional_code(rule_mark, total, mark_up, path)
+        with open(path) as master:
+            for line in master.readlines():
+                if type(line) is not '\n':
+                    continue
+                res = promotional_code.decrypt_promotional_code(line)
+                self.assertEqual(res, rule_mark)
+
+    def test_generate_with_rule_mark(self):
+        random_str, encrypt_symbol = promotional_code.generate_with_rule_mark('a', 'a')
         print('uuid 生成的随机串为 {}'.format(random_str))
         print('根据规则id与uuid生成的随机串获得的加密串为{}'.format(encrypt_symbol))
         total = sum([int(i) if i.isdigit() else int(ord(i)) for i in list(random_str)])
